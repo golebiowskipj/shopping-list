@@ -22,9 +22,13 @@ export const ModalStyled = styled.div`
     width: 100%;
     height: 100%;
     margin: auto;
+    display: flex;
+
+    @media(min-width: 450px) {
+        max-width: 450px;
+        height: auto;
+    }
     @media(min-width: 767px) {
-        max-width: 375px;
-        max-height: 90vh;
         height: auto;
     }
 `;
@@ -33,8 +37,15 @@ export const ModalBodyStyled = styled.div`
     z-index: 100;
     width: 100%;
     height: 100%; 
+    margin: auto;
     background: white;
-    padding: 20px 10px 10px;
+    padding: 20px 20px 10px;
+    overflow: scroll;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar { width: 0 !important }
+
 
     &>header {
         display: flex;
@@ -42,21 +53,26 @@ export const ModalBodyStyled = styled.div`
         align-items: center;
         margin-bottom: 25px;
         h2 {
-            font-size: 0.825rem;
+            font-weight: 300;
+            width: 100%;
+            text-align: center;
         }
     }
+
+    @media(min-width: 450px) {
+        border-radius: 10px;
+    }
+    
     @media(min-width: 767px) {
        padding: 20px;
-       border-radius: 10px;
        height: auto;
+       max-height: 90vh;
     }
 `;
 
 export const CloseButton = styled.button`
     background: transparent;
     border: none;
-    width: 20px;
-    height: 20px;
     font-weight: bold;
     cursor: pointer;
     font-size: 1.5rem;

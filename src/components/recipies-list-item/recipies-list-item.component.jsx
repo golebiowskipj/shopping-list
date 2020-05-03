@@ -6,7 +6,7 @@ export const RecipiesListItem = ({ recipie, onClick }) => {
     return <ListItemStyled className='js-listitem' onClick={(e) => {
         if (e.target.classList.contains('js-listitem')) onClick();
     }}>
-        <h3>{recipie.name}</h3>
+        <h3 className='js-listitem'>{recipie.name}</h3>
         <RecipiesControlls recipie={recipie} />
     </ListItemStyled>
 }

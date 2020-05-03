@@ -6,7 +6,10 @@ export const ListItemStyled = styled.li`
     margin-bottom: .25rem;
     border: 1px solid ${props => props.theme.colorPrimary};
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+    transition: all .2s linear;
 
     &:hover {
         box-shadow: 0 0 5px #ccc;
