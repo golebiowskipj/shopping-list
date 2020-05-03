@@ -6,6 +6,7 @@ import { LayoutStyled } from './components/layout/layout.style';
 import { GenerateShoppingListButton } from './components/generate-shopping-list-button/generate-shopping-list-button.component';
 import { Modal } from './components/modal/modal.component';
 import { IngredientsList } from './components/ingredients-list/ingredients-list.component';
+import { ControllsStyled } from './components/controlls/controlls.style';
 
 export const GlobalContext = React.createContext(null);
 
@@ -151,7 +152,7 @@ function App() {
           <Search
             placeholder='Szukaj przepisu'
           />
-          <div style={{ display: 'flex', marginBottom: '25px', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <ControllsStyled>
             <p>Posiłków: {calculateDishes()}</p>
             <Modal
               title="Lista zakupów"
@@ -175,7 +176,7 @@ function App() {
                 dispatch({ type: types.clear });
                 clearLocaleStorage('recipies');
               }} />
-          </div>
+          </ControllsStyled>
         </section>
         <section>
           <RecipiesList
