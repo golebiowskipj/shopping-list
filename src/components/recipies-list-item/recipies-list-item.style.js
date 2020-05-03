@@ -11,4 +11,9 @@ export const ListItemStyled = styled.li`
     &:hover {
         box-shadow: 0 0 5px #ccc;
     }
+
+    h3 {
+        font-weight: 300;
+        font-size: 1.2rem;
+    }
 `;

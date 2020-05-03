@@ -12,4 +12,10 @@ body {
   padding: 1rem;
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
+  line-height: 1.4;
+  color: #333;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  line-height: 1;
 }

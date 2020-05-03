@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import './App.css';
 import { recipies } from './data/recipies';
 import { RecipiesList } from './components/recipes-list/recipies-list.component';
 import { Search } from './components/search/search.component';
@@ -19,7 +18,7 @@ export const types = {
 function reducer(state, action) {
   switch (action.type) {
     case types.generateShopingList:
-      // ingredients times recipie count
+      
       const ingredients = state.selectedRecipies.map(recipie => {
         return recipie.ingredients.map(ingredient => {
           return { ...ingredient, qty: ingredient.qty * recipie.count }
@@ -42,7 +41,6 @@ function reducer(state, action) {
         return acc;
       }, []);
 
-      // sprawdz powtarzalnosc skladnikow
       return { ...state, ingredients: [...merged] }
     case types.addRecipie:
       const { id: newIdAdd } = action.payload;
@@ -91,7 +89,6 @@ function App() {
     return state.recipies.filter(recipie => recipie.name.toLowerCase().includes(state.search.toLowerCase()))
   }
 
-  console.log(state.ingredients)
 
   // todo
   // po kliknieciu na nazwe przepisu - modal ze skladnikami 
