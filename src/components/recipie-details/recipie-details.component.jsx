@@ -7,6 +7,8 @@ export const RecipieDetails = ({ recipie }) => {
         <Name>
             {recipie.name}
         </Name>
-        <IngredientsList ingredients={recipie.ingredients} />
+        <IngredientsList
+            ingredients={recipie.ingredients}
+        />
     </>)
 }

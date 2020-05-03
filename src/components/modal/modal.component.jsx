@@ -6,12 +6,6 @@ export const Modal = (props) => {
     const [show, setShow] = useState(false);
     const overlayRef = useRef(null);
 
-    const close = (e) => {
-        if (e.target.classList.contains('js-overlay')) {
-            setShow(false);
-        }
-    }
-
     useEffect(() => {
         const node = overlayRef.current;
         if (node) {
@@ -24,6 +18,12 @@ export const Modal = (props) => {
             }
         };
     }, [show]);
+
+    const close = (e) => {
+        if (e.target.classList.contains('js-overlay')) {
+            setShow(false);
+        }
+    }
 
     const content = show ?
         (

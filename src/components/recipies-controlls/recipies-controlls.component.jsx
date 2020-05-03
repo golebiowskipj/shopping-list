@@ -7,8 +7,16 @@ import { GlobalContext } from '../../App';
 export const RecipiesControlls = ({ recipie }) => {
     const ctx = useContext(GlobalContext);
     return <RecipiesControllsStyled>
-        <RecipiesAddRemoveButton type="add" onClick={() => ctx.addRecipie(recipie)} />
-        <RecipiesCounter count={recipie.count} />
-        <RecipiesAddRemoveButton type="remove" onClick={() => ctx.removeRecipie(recipie)} />
+        <RecipiesAddRemoveButton
+            type="add"
+            onClick={() => ctx.addRecipie(recipie)}
+        />
+        <RecipiesCounter
+            count={recipie.count}
+        />
+        <RecipiesAddRemoveButton
+            type="remove"
+            onClick={() => ctx.removeRecipie(recipie)}
+        />
     </RecipiesControllsStyled>
 };

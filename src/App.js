@@ -82,6 +82,30 @@ function reducer(state, action) {
 function App() {
   const [state, dispatch] = useReducer(reducer, { selectedRecipies: [], ingredients: [], recipies: [...recipies], search: '' });
 
+  useEffect(() => {
+    const data = getFromLocalStorage('recipies');
+    const lsTimeStamp = localStorage.getItem('timeStamp');
+    const now = Date.now();
+
+    if (data.length > 0) {
+      if ((now - lsTimeStamp < 1000 * 60 * 60 * 24 * 8)) {
+        dispatch({ type: types.setRecipies, payload: data });
+      } else {
+        localStorage.removeItem('recipies');
+        localStorage.setItem('timeStamp', now);
+        dispatch({ type: types.setRecipies, payload: recipies });
+      }
+    } else {
+      dispatch({ type: types.setRecipies, payload: recipies });
+      localStorage.setItem('timeStamp', now);
+    }
+
+  }, []);
+
+  useEffect(() => {
+    saveToLocalStorage('recipies', state.recipies)
+  }, [state.recipies]);
+
   const saveToLocalStorage = (type, data) => {
     localStorage.setItem(type, JSON.stringify(data));
   }
@@ -96,18 +120,6 @@ function App() {
     localStorage.removeItem(type);
   }
 
-  useEffect(() => {
-    const data = getFromLocalStorage('recipies');
-
-    if (data) {
-      dispatch({ type: types.setRecipies, payload: data });
-    }
-  }, []);
-
-  useEffect(() => {
-    saveToLocalStorage('recipies', state.recipies)
-  }, [state.recipies]);
-
   const handleSearch = (e) => {
     dispatch({ type: types.handleSearch, payload: e.target.value });
   }
@@ -115,7 +127,6 @@ function App() {
   const addRecipie = (recipie) => {
     dispatch({ type: types.addRecipie, payload: recipie });
     saveToLocalStorage('recipies', state.recipies);
-    console.log(getFromLocalStorage('recipies'))
   }
   const removeRecipie = (recipie) => {
     dispatch({ type: types.removeRecipie, payload: recipie })
@@ -123,6 +134,10 @@ function App() {
 
   const getFilteredRecipies = () => {
     return state.recipies.filter(recipie => recipie.name.toLowerCase().includes(state.search.toLowerCase()))
+  }
+
+  const calculateDishes = () => {
+    return state.recipies.map(x => x.count).reduce((acc, cur) => acc += cur);
   }
 
   return (
@@ -133,26 +148,38 @@ function App() {
     }}>
       <LayoutStyled>
         <section>
-          <Search placeholder='Szukaj przepisu' />
-          <div style={{ display: 'flex', marginBottom: '25px', justifyContent: 'flex-end' }}>
+          <Search
+            placeholder='Szukaj przepisu'
+          />
+          <div style={{ display: 'flex', marginBottom: '25px', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <p>Posiłków: {calculateDishes()}</p>
             <Modal
               title="Lista zakupów"
-              activator={setShow => <GenerateShoppingListButton type="list" text="Lista zakupów" disabled={state.selectedRecipies.length === 0 ? true : false} onClick={() => {
-                dispatch({ type: types.generateShopingList });
-                setShow(true)
-              }} />}
+              activator={setShow => <GenerateShoppingListButton
+                type="list"
+                text="Lista zakupów"
+                disabled={state.selectedRecipies.length === 0 ? true : false}
+                onClick={() => {
+                  dispatch({ type: types.generateShopingList });
+                  setShow(true)
+                }} />}
             >
-              <IngredientsList ingredients={state.ingredients} />
+              <IngredientsList
+                ingredients={state.ingredients} />
             </Modal>
-            <GenerateShoppingListButton type="clear" text="Wyczyść" disabled={state.selectedRecipies.length === 0 ? true : false} onClick={() => {
-              dispatch({ type: types.clear });
-              clearLocaleStorage('recipies');
-            }} />
+            <GenerateShoppingListButton
+              type="clear"
+              text="Wyczyść"
+              disabled={state.selectedRecipies.length === 0 ? true : false}
+              onClick={() => {
+                dispatch({ type: types.clear });
+                clearLocaleStorage('recipies');
+              }} />
           </div>
-
         </section>
         <section>
-          <RecipiesList recipies={getFilteredRecipies()} />
+          <RecipiesList
+            recipies={getFilteredRecipies()} />
         </section>
       </LayoutStyled>
     </GlobalContext.Provider>

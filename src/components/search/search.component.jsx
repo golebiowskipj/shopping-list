@@ -7,6 +7,9 @@ export const Search = ({ placeholder }) => {
     const ctx = useContext(GlobalContext);
 
     return (
-        <SearchFieldStyled placeholder={placeholder} type="search" onChange={ctx.handleSearch} />
+        <SearchFieldStyled
+            placeholder={placeholder}
+            type="search"
+            onChange={ctx.handleSearch} />
     )
 };
