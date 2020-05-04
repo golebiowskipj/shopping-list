@@ -7,6 +7,10 @@ export const SearchFieldStyled = styled.input`
     margin: 2rem auto;
     display: block;
     border: 1px solid ${props => props.theme.colorPrimaryDarker};
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 
     &:focus {
         outline-color: black;
