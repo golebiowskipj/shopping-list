@@ -93,8 +93,8 @@ function App() {
         dispatch({ type: types.setRecipies, payload: data });
       } else {
         localStorage.removeItem('recipies');
-        localStorage.setItem('timeStamp', now);
         dispatch({ type: types.setRecipies, payload: recipies });
+        saveToLocalStorage('recipies', recipies);
       }
     } else {
       dispatch({ type: types.setRecipies, payload: recipies });
